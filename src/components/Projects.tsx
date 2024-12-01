@@ -1,0 +1,175 @@
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Github, ExternalLink } from 'lucide-react';
+import ProjectModal from './ProjectModal';
+
+const projects = [
+  {
+    title: 'Chat-247',
+    description: 'A real-time messaging application with over 10+ reusable components, including 3 custom-built components for enhanced functionality and UX. Implemented Socket.io for real-time communication, enabling seamless private and group messaging.',
+    image: 'https://images.unsplash.com/photo-1611746872915-64382b5c76da?auto=format&fit=crop&q=80&w=800',
+    technologies: ['MongoDB', 'Express.js', 'React', 'Node.js', 'Redux', 'Socket.io'],
+    github: 'https://github.com/Agastya-07/ChitChat',
+    live: 'https://chat-2-vqie.onrender.com',
+    features: [
+      'Real-time messaging with Socket.io',
+      'Private and group chat functionality',
+      'User authentication and authorization',
+      'Message history and persistence',
+      'Responsive design for all devices'
+    ],
+    team: 'Solo Project',
+    duration: '2 months',
+    challenges: [
+      'Implementing real-time communication',
+      'Managing complex state with Redux',
+      'Handling concurrent user connections'
+    ],
+    learnings: [
+      'WebSocket implementation best practices',
+      'State management patterns',
+      'Real-time application architecture'
+    ]
+  },
+  {
+    title: 'WebDraw',
+    description: 'Developed an innovative and seamless blackboard application, leveraging HTML, CSS, and JavaScript to create a sleek and intuitive design ensuring fluid interaction and user satisfaction.',
+    image: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&q=80&w=800',
+    technologies: ['HTML', 'CSS', 'JavaScript'],
+    github: 'https://github.com/Agastya-07/WebDraw',
+    live: 'https://webdraw-demo.com',
+    features: [
+      'Free-hand drawing capabilities',
+      'Multiple color options',
+      'Brush size adjustment',
+      'Save and export functionality'
+    ],
+    team: 'Solo Project',
+    duration: '1 month',
+    challenges: [
+      'Implementing smooth drawing mechanics',
+      'Optimizing canvas performance',
+      'Managing undo/redo functionality'
+    ],
+    learnings: [
+      'Canvas API mastery',
+      'Drawing algorithms',
+      'Performance optimization techniques'
+    ]
+  },
+  {
+    title: 'Weathertrack',
+    description: 'Developed the "Weather-Track" web application showing 6+ features. This application adeptly retrieves real-time weather data from the OpenWeather APIs, ensuring precise data accuracy.',
+    image: 'https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?auto=format&fit=crop&q=80&w=800',
+    technologies: ['React', 'JavaScript', 'CSS', 'OpenWeather API'],
+    github: 'https://github.com/Agastya-07/WeatherTrack',
+    live: 'https://weathertrack-demo.com',
+    features: [
+      'Real-time weather updates',
+      'Location-based forecasting',
+      '5-day weather prediction',
+      'Interactive weather maps'
+    ],
+    team: 'Solo Project',
+    duration: '3 weeks',
+    challenges: [
+      'API integration and error handling',
+      'Accurate location detection',
+      'Data visualization implementation'
+    ],
+    learnings: [
+      'API integration patterns',
+      'Weather data processing',
+      'Geolocation services'
+    ]
+  }
+];
+
+const Projects = () => {
+  const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
+
+  return (
+    <section id="projects" className="py-20 bg-gray-50">
+      <div className="container mx-auto px-4">
+        <motion.h2 
+          className="text-3xl font-bold text-center mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 text-transparent bg-clip-text">
+            Featured Projects
+          </span>
+        </motion.h2>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          {projects.map((project, index) => (
+            <motion.div
+              key={index}
+              className="bg-white rounded-xl overflow-hidden shadow-lg cursor-pointer"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.2 }}
+              viewport={{ once: true }}
+              whileHover={{ y: -5 }}
+              onClick={() => setSelectedProject(project)}
+            >
+              <div className="relative h-48 overflow-hidden">
+                <img 
+                  src={project.image} 
+                  alt={project.title}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
+                <p className="text-gray-600 mb-4 line-clamp-3">{project.description}</p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {project.technologies.map((tech, techIndex) => (
+                    <span 
+                      key={techIndex}
+                      className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+                <div className="flex gap-4">
+                  <a 
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-gray-600 hover:text-gray-900"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <Github size={20} />
+                    <span>Code</span>
+                  </a>
+                  <a 
+                    href={project.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-gray-600 hover:text-gray-900"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <ExternalLink size={20} />
+                    <span>Live Demo</span>
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      {selectedProject && (
+        <ProjectModal
+          project={selectedProject}
+          isOpen={!!selectedProject}
+          onClose={() => setSelectedProject(null)}
+        />
+      )}
+    </section>
+  );
+};
+
+export default Projects;
