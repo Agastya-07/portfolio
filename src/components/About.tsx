@@ -11,8 +11,10 @@ const About = () => {
           </span>
         </h2>
         <div className="grid md:grid-cols-2 gap-8 items-center max-w-6xl mx-auto">
-          <div className="relative">
+          <div className="relative max-w-xs md:max-w-sm mx-auto">
+            {/* Glow effect */}
             <div className="absolute -inset-1 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 rounded-2xl blur-md opacity-75"></div>
+            {/* Profile Image */}
             <img
               src="/profile.jpg"
               alt="Saurabh's Profile"

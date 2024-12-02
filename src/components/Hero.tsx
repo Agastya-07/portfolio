@@ -57,6 +57,7 @@ const Hero = () => {
             <div className="bg-gradient-to-r from-blue-400/10 via-purple-500/10 to-pink-500/10 p-[1px] rounded-lg mb-8">
               <div className="bg-gray-900 rounded-lg p-4">
                 <p className="text-xl text-gray-300">
+                  
                   Full Stack Developer passionate about building innovative solutions
                 </p>
               </div>
@@ -100,17 +101,24 @@ const Hero = () => {
           </div>
 
           {/* Right Section */}
-          <div className="flex-1 max-w-sm relative">
-  {/* Glowing effect wrapper */}
-            <div className="absolute -inset-1 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 rounded-full blur-md opacity-75"></div>
-            
+          <div className="flex-1 max-w-sm relative group">
+            {/* Glowing border effect */}
+            <div
+              className="absolute inset-0 w-64 h-64 rounded-full border-[2px] border-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 
+                          group-hover:animate-pulse group-hover:opacity-100 transition-opacity duration-500 blur-sm mx-auto"
+            ></div>
+
             {/* Profile image */}
             <img
               src="/profile.jpg"
               alt="Agastya's Profile"
-              className="relative rounded-full w-64 h-64 object-cover mx-auto border-2 border-white/20 shadow-lg"
+              className="relative w-64 h-64 rounded-full object-cover mx-auto border-2 border-transparent shadow-lg 
+                        transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110"
             />
           </div>
+
+
+
 
         </div>
       </div>

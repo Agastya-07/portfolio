@@ -5,10 +5,14 @@ import { Menu, X } from 'lucide-react';
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
+  // Navigation items, including the newly added "Skills" section
+  const navItems = ['Home', 'About', 'Skills', 'Projects', 'Experience', 'Contact'];
+
   return (
     <nav className="fixed w-full bg-gray-900 bg-opacity-90 backdrop-blur-sm z-50">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
+          {/* Brand Name */}
           <motion.a 
             href="#"
             className="text-white font-bold text-xl"
@@ -18,6 +22,7 @@ const Navbar = () => {
             Portfolio
           </motion.a>
           
+          {/* Mobile Menu Toggle */}
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="md:hidden text-white"
@@ -25,8 +30,9 @@ const Navbar = () => {
             {isOpen ? <X /> : <Menu />}
           </button>
 
+          {/* Desktop Navigation */}
           <div className="hidden md:flex space-x-8">
-            {['Home', 'About', 'Projects', 'Experience', 'Contact'].map((item) => (
+            {navItems.map((item) => (
               <motion.a
                 key={item}
                 href={item === 'Home' ? '#' : `#${item.toLowerCase()}`}
@@ -40,6 +46,7 @@ const Navbar = () => {
           </div>
         </div>
 
+        {/* Mobile Navigation */}
         <AnimatePresence>
           {isOpen && (
             <motion.div
@@ -50,7 +57,7 @@ const Navbar = () => {
               transition={{ duration: 0.2 }}
             >
               <div className="px-2 pt-2 pb-3 space-y-1">
-                {['Home', 'About', 'Projects', 'Experience', 'Contact'].map((item) => (
+                {navItems.map((item) => (
                   <motion.a
                     key={item}
                     href={item === 'Home' ? '#' : `#${item.toLowerCase()}`}

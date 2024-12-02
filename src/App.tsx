@@ -6,6 +6,7 @@ import About from './components/About';
 import Projects from './components/Projects';
 import Experience from './components/Experience';
 import Contact from './components/Contact';
+import Skills from './components/Skills'
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <About />
           <Projects />
           <Experience />
+          <Skills />
           <Contact />
         </motion.div>
       </div>
