@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Github, Linkedin, Mail } from 'lucide-react';
+import { Github, Linkedin, Mail, Download } from 'lucide-react';
 
 const Hero = () => {
   const [displayedText, setDisplayedText] = useState(''); // Holds the current typed text
@@ -57,7 +57,6 @@ const Hero = () => {
             <div className="bg-gradient-to-r from-blue-400/10 via-purple-500/10 to-pink-500/10 p-[1px] rounded-lg mb-8">
               <div className="bg-gray-900 rounded-lg p-4">
                 <p className="text-xl text-gray-300">
-                  
                   Full Stack Developer passionate about building innovative solutions
                 </p>
               </div>
@@ -98,6 +97,18 @@ const Hero = () => {
                 <Mail size={24} />
               </a>
             </div>
+
+            {/* Resume Download Button */}
+            <div className="mt-8">
+              <a
+                href="/AgastyaSharma21bcs012.pdf" // Update this path if your resume file name is different
+                download="Agastya_Sharma_Resume.pdf"
+                className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all"
+              >
+                <Download className="w-5 h-5 mr-2" />
+                Download Resume
+              </a>
+            </div>
           </div>
 
           {/* Right Section */}
@@ -116,10 +127,6 @@ const Hero = () => {
                         transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110"
             />
           </div>
-
-
-
-
         </div>
       </div>
     </div>
