@@ -37,7 +37,7 @@ const projects = [
     image: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&q=80&w=800',
     technologies: ['HTML', 'CSS', 'JavaScript'],
     github: 'https://github.com/Agastya-07/WebDraw',
-    live: 'https://webdraw-demo.com',
+    live: 'https://glistening-jelly-00771b.netlify.app/',
     features: [
       'Free-hand drawing capabilities',
       'Multiple color options',
@@ -63,7 +63,7 @@ const projects = [
     image: 'https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?auto=format&fit=crop&q=80&w=800',
     technologies: ['React', 'JavaScript', 'CSS', 'OpenWeather API'],
     github: 'https://github.com/Agastya-07/WeatherTrack',
-    live: 'https://weathertrack-demo.com',
+    live: 'https://weather-tracko.netlify.app/',
     features: [
       'Real-time weather updates',
       'Location-based forecasting',
@@ -87,6 +87,23 @@ const projects = [
 
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
+  const [zoomedProjectIndex, setZoomedProjectIndex] = useState<number | null>(null);
+
+  const handleCardClick = (index: number) => {
+    if (zoomedProjectIndex === index) {
+      setZoomedProjectIndex(null); // Minimize if the same card is clicked again
+      setSelectedProject(null); // Close the modal when zoom is minimized
+    } else {
+      setZoomedProjectIndex(index); // Zoom in the clicked card
+      setSelectedProject(projects[index]); // Open the modal with the clicked project
+    }
+  };
+
+  // Close modal when clicking outside
+  const closeModal = () => {
+    setSelectedProject(null);
+    setZoomedProjectIndex(null);
+  };
 
   return (
     <section id="projects" className="py-20 bg-gray-50">
@@ -105,13 +122,14 @@ const Projects = () => {
           {projects.map((project, index) => (
             <motion.div
               key={index}
-              className="bg-white rounded-xl overflow-hidden shadow-lg cursor-pointer"
+              className={`bg-white rounded-xl overflow-hidden shadow-lg cursor-pointer transform transition-transform duration-500 
+                          ${zoomedProjectIndex === index ? 'scale-110' : 'scale-100'}`}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.2 }}
               viewport={{ once: true }}
               whileHover={{ y: -5 }}
-              onClick={() => setSelectedProject(project)}
+              onClick={() => handleCardClick(index)}
             >
               <div className="relative h-48 overflow-hidden">
                 <img 
@@ -162,11 +180,49 @@ const Projects = () => {
       </div>
 
       {selectedProject && (
-        <ProjectModal
-          project={selectedProject}
-          isOpen={!!selectedProject}
-          onClose={() => setSelectedProject(null)}
-        />
+        <div 
+          className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50"
+          onClick={closeModal} // Close modal when clicking outside
+        >
+          <div 
+            className="bg-white rounded-lg p-8 max-w-lg w-full"
+            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the modal
+          >
+            <ProjectModal
+              project={selectedProject}
+              isOpen={!!selectedProject}
+              onClose={closeModal}
+            />
+            <div className="mt-6 flex justify-between items-center">
+              <div className="flex gap-4">
+                <a 
+                  href={selectedProject.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-gray-600 hover:text-gray-900"
+                >
+                  <Github size={20} />
+                  <span>Code</span>
+                </a>
+                <a 
+                  href={selectedProject.live}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-gray-600 hover:text-gray-900"
+                >
+                  <ExternalLink size={20} />
+                  <span>Live Demo</span>
+                </a>
+              </div>
+              <button
+                className="px-4 py-2 bg-red-500 text-white rounded-full hover:bg-red-600"
+                onClick={closeModal}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </section>
   );
