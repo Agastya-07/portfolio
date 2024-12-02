@@ -21,10 +21,9 @@ const Skills = () => {
       skills: [
         { name: "C++", icon: <SiCplusplus className="text-blue-500 w-8 h-8" /> },
         { name: "JavaScript", icon: <SiJavascript className="text-yellow-500 w-8 h-8" /> },
-        { name: "Mongodb", icon: <SiMongodb className="text-green-500 w-8 h-8" /> }
-      ]
-    },
-    {
+    ]
+},
+{
       title: "Libraries & Frameworks",
       skills: [
         { name: "ReactJS", icon: <SiReact className="text-blue-400 w-8 h-8" /> },
@@ -40,6 +39,7 @@ const Skills = () => {
       skills: [
         { name: "GIT", icon: <SiGit className="text-orange-500 w-8 h-8" /> },
         { name: "Postman", icon: <SiPostman className="text-orange-400 w-8 h-8" /> },
+        { name: "Mongodb", icon: <SiMongodb className="text-green-500 w-8 h-8" /> },
         { name: "VS Code", icon: <SiVisualstudiocode className="text-blue-400 w-8 h-8" /> },
         { name: "Windows", icon: <SiWindows className="text-blue-600 w-8 h-8" /> }
       ]
